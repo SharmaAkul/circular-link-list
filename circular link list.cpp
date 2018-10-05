@@ -1,132 +1,100 @@
 #include<iostream>
 using namespace std;
-
-struct node{
-int data;
-node *next;
+class circularQueue
+{
+	public:
+		int size,a[20],value;
+		static int front,rear;
+		circularQueue()
+		{
+			cout<<"enter size of array : ";
+			cin>>size;
+		}
+		void push()
+		{
+			cout<<"enter the element : ";
+			cin>>value;
+		  if((front==0 && rear==size-1) || (rear==front-1))
+		      cout<<"Queue overflow"<<endl;
+		  else
+		  {
+		  	if(front==-1)
+		  	{
+		  		front=rear=0;
+			}
+		  else if(rear==size)
+		  	{
+		  		 rear=0;
+			}
+		  	   
+		  	else
+		  	rear++;
+		  	
+		  	a[rear]=value;
+		  }
+		  cout<<a[rear];
+		}
+		void pop()
+		{
+		  if(front==-1)
+		     cout<<"Queue Underflow"<<endl;
+		  else
+		  {
+		  	if(front==rear)
+		  	   front=rear=-1;
+		  	else if(front==size)
+		  	   front=0;
+		  	else
+		  	   front++;
+		  }	
+		}
+		void pip()
+		{
+		  if(rear<front)
+		  {
+		  	for(int i=front;i<size;i++)
+		  	   cout<<a[i]<<" ";
+		  	for(int i=0;i<=rear;i++)
+		  	   cout<<a[i]<<" ";
+		  }	
+		  else if(rear>front)
+		    for(int i=front;i<=rear;i++)
+		       cout<<a[i]<<" ";
+		}
 };
-
-struct node * start=NULL;
-
-int main(){
-node *temp,*t,*ptr;
-int pos,i=0,choice=0;
-while(choice<=7){
- cout<<"press 1 to insert from beginning"<<endl;
-    cout<<"press 2 to insert from end"<<endl;
-    cout<<"press 3 to insert at any position"<<endl;
-    cout<<"press 4 to delete from end"<<endl;
-    cout<<"press 5 to delete from begin"<<endl;
-    cout<<"press 6 to delete from at any position"<<endl;
-    cout<<"press 7 to display"<<endl;
-    cout<<"press 0 to exit"<<endl;
-    cin>>choice;
-    temp=new node();
-
-    if(choice==1){
-    cout<<"enter the number"<<endl;
-    cin>>temp->data;
-
-        if(start==NULL){
-            start=temp;
-            temp->next=start;
-
-               }
-            else{
-                t=start;
-                while(t->next!=start){
-                t=t->next;
-                }
-                temp->next=start;
-                start=temp;
-                t->next=start;}
-        }
-    if(choice==2){
-    cout<<"enter the number"<<endl;
-    cin>>temp->data;
-        if(start==NULL){
-            start=temp;
-           temp->next=start;
-            }
-    else{
-        t= start;
-        while(t->next!=start){
-            t=t->next;
-        }
-
-        t->next=temp;
-        temp->next=start;
-    }
-    }
-    if(choice==3){
-    cout<<"enter the number"<<endl;
-    cin>>temp->data;
-    cout<<"enter the position"<<endl;
-    cin>>pos;
-            if(pos==1){
-                if(start==NULL){
-            start=temp;
-           temp->next=start;
-            }
-            else{
-            t=start;
-                while(t->next!=start){
-                t=t->next;
-                }
-                temp->next=start;
-                start=temp;
-                t->next=start;
-            }
-            }
-            else if(pos>1){
-            t=start;
-            while(i<pos){
-                ptr=t;
-                t=t->next;
-                i++;
-            }
-            ptr->next=temp;
-            temp->next=t;
-
-            }
-    }
-    if(choice==4){
-        if(start==NULL)
-            cout<<"empty";
-        else{
-            t=start;
-            while(t->next!=start){
-            ptr=t;
-            t=t->next;}
-            ptr->next=start;
-        }
-    }
-
-     if(choice==5){
-        if(start==NULL)
-            cout<<"empty";
-        else{
-         t=start;
-           while(t->next!=start){
-            t=t->next;
-            }
-          start=start->next;
-          t->next=start;
-
-            }
-        }
-
-
-
-    if(choice==7){
-        t=start;
-        temp=start;
-      while(t->next!=start){
-            cout<<t->data<<" ";
-            t=t->next;
-        }//cout<<t->data<<" ";
-        cout<<start->data<<endl;
-
-    }
-    }
+int circularQueue::front=-1;
+int circularQueue::rear=-1;
+int main()
+{
+	int c;
+	circularQueue q;
+		cout<<"1.Push \n 2.Pop \n 3.Pip \n 4.Exit"<<endl;
+	while(1)
+	{
+		cout<<endl<<"enter the choice : ";
+		cin>>c;
+		switch(c)
+		{
+			case 1:
+				{
+				    q.push();
+					break;	
+				}
+			case 2:
+				{
+					q.pop();
+					break;	
+				}
+			case 3:
+				{ 
+					q.pip();
+					break;
+				}
+			case 4:
+				{
+				   exit(0);		
+				}
+		}
+	}
+	return 0;
 }
